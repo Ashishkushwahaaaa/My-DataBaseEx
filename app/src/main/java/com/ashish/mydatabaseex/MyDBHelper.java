@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -28,10 +27,8 @@ public class MyDBHelper extends SQLiteOpenHelper {
         //CREATE TABLE contacts(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT, phone_no TEXT);
         db.execSQL("CREATE TABLE " + TABLE_CONTACT +
                 "(" +  KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME + " TEXT, " + KEY_PHONE_NO + "  TEXT" + ")");
-
-//        SQLiteDatabase database = this.getWritableDatabase(); //Opening data base;
-//        database.close();                                     //Closing dataBase;
     }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACT);
@@ -39,7 +36,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
     }
 
     public void insertContacts(String name, String phone_no){
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase(); //Opening the database;
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, name);
@@ -61,6 +58,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
             model.phone_no = cursor.getString(2);
             contacts.add(model);
         }
+        cursor.close();
         return contacts;
     }
 
@@ -71,5 +69,11 @@ public class MyDBHelper extends SQLiteOpenHelper {
         values.put(KEY_PHONE_NO , contactsModel.phone_no);
 
         db.update(TABLE_CONTACT, values, KEY_ID + " = " + contactsModel.id, null);
+    }
+
+    public void deleteContacts(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_CONTACT, KEY_ID + " = ? " , new String[]{String.valueOf(id)});
+        db.execSQL("UPDATE " + TABLE_CONTACT + " SET " + KEY_ID + " = " + KEY_ID + " - 1 WHERE " + KEY_ID + " > " + id);
     }
 }

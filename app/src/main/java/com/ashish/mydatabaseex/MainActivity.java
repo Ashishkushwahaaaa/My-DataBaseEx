@@ -20,15 +20,21 @@ public class MainActivity extends AppCompatActivity {
             //The insertion of the data in most cases should be done on the click of the users;
 //        dbHelper.insertContacts("Ashish", "9889583686");
 //        dbHelper.insertContacts("Ritika", "9653088544");
+//        dbHelper.insertContacts("Papa", "9616885575");
 //        dbHelper.insertContacts("Mommy", "9616885575");
 
 
+
         //Updating the data;
-        ContactsModel contactsModel = new ContactsModel();
-        contactsModel.id = 1;
-        contactsModel.name = "Ashish"; //Not required here as we are not updating the name;
-        contactsModel.phone_no = "7983924706";
-        dbHelper.updateContacts(contactsModel);
+//        ContactsModel contactsModel = new ContactsModel();
+//        contactsModel.id = 4;
+//        contactsModel.name = "Mommy"; //Not required here as we are not updating the name;
+//        contactsModel.phone_no = "8112760777";
+//        dbHelper.updateContacts(contactsModel);
+
+
+        //Deleting the data;
+//        dbHelper.deleteContacts(3);
 
 
         //Fetching the data;
